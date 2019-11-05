@@ -1,21 +1,10 @@
-# Razzle x After.js
+# React spring SSR issue example
 
 ## How to use
 
-Download the example [or clone the whole project](https://github.com/jaredpalmer/razzle.git):
+To reproduce the issue clone the project, then `yarn` to install everything and then `yarn start` to start it up.
 
-```bash
-curl https://codeload.github.com/jaredpalmer/razzle/tar.gz/master | tar -xz --strip=2 razzle-master/examples/with-afterjs
-cd with-afterjs
-```
+When you have it running, you can access the node.js's profiler tool in Chrome on `localhost:7776`. (you can find it at `chrome://inspect`)
+Take a first heap snapshot after the app starts up and you'll see that it's pretty clean.
 
-Install it and run:
-
-```bash
-yarn install
-yarn start
-```
-
-## Idea behind the example
-
-This is a basic, bare-bones example of how to use After.js and Razzle.
+Then to simulate some load on the server download a tool like siege (that's what I'm testing with) and let it swarm the server for around 45 seconds (if you download `siege` then commad is `siege http://localhost:3005`). You can watch live how the server's heap size is growing to end up at least twice as big, mostly clogged by FrameLoop.
